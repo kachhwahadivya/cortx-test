@@ -2992,7 +2992,9 @@ class TestIamUserRGW():
             self.log.info("Verifying error response...")
             assert_utils.assert_equals(add_resp.json()["error_code"], resp_error_code)
             assert_utils.assert_equals(add_resp.json()["message_id"], resp_msg_id)
-            assert_utils.assert_equals(add_resp.json()["message"], msg_1)
+            assert_utils.assert_equals(add_resp.json()["message"], 
+                                       Template(msg_1).substitute(A="_schema", 
+                                       B="access_key"))
 
         add_resp = self.csm_obj.add_key_to_iam_user(uid=uid, secret_key="")
         assert_utils.assert_true(add_resp.status_code == HTTPStatus.BAD_REQUEST, "Response failed")
@@ -3000,7 +3002,9 @@ class TestIamUserRGW():
             self.log.info("Verifying error response...")
             assert_utils.assert_equals(add_resp.json()["error_code"], resp_error_code)
             assert_utils.assert_equals(add_resp.json()["message_id"], resp_msg_id)
-            assert_utils.assert_equals(add_resp.json()["message"], msg_2)
+            assert_utils.assert_equals(add_resp.json()["message"],
+                                       Template(msg_1).substitute(A="_schema",
+                                       B="secret_key"))
 
         get_resp = self.csm_obj.get_iam_user(user=uid)
         assert_utils.assert_true(get_resp.status_code == HTTPStatus.OK, "Get IAM user failed")
@@ -3044,7 +3048,9 @@ class TestIamUserRGW():
             self.log.info("Verifying error response...")
             assert_utils.assert_equals(add_resp.json()["error_code"], resp_error_code)
             assert_utils.assert_equals(add_resp.json()["message_id"], resp_msg_id)
-            assert_utils.assert_equals(add_resp.json()["message"], msg)
+            assert_utils.assert_equals(add_resp.json()["message"], 
+                                       Template(msg).substitute(A="Uid", 
+                                       B=msg))
 
         self.log.info("##### Test completed -  %s #####", test_case_name)
 
@@ -3484,11 +3490,15 @@ class TestIamUserRGW():
                 if key_value is None:
                     assert_utils.assert_equals(resp.json()["error_code"], resp_error_code)
                     assert_utils.assert_equals(resp.json()["message_id"], resp_msg_id)
-                    assert_utils.assert_equals(resp.json()["message"], msg_1)
+                    assert_utils.assert_equals(resp.json()["message"], 
+                                               Template(msg_1).substitute(A="Key_type", 
+                                               B=msg_1))
                 else:
                     assert_utils.assert_equals(resp.json()["error_code"], resp_error_code)
                     assert_utils.assert_equals(resp.json()["message_id"], resp_msg_id)
-                    assert_utils.assert_equals(resp.json()["message"], msg_2)
+                    assert_utils.assert_equals(resp.json()["message"], 
+                                               Template(msg_2).substitute(A="Key_type", 
+                                               B="s3."))
 
         self.log.info("##### Test completed -  %s #####", test_case_name)
 
@@ -3538,13 +3548,15 @@ class TestIamUserRGW():
                 if key_value is None:
                     assert_utils.assert_equals(resp.json()["error_code"], resp_error_code)
                     assert_utils.assert_equals(resp.json()["message_id"], resp_msg_id)
-                    assert_utils.assert_equals(resp.json()["message"].lower(),
-                                                                msg_1.format("max_buckets").lower())
+                    assert_utils.assert_equals(resp.json()["message"],
+                                               Template(msg_1).substitute(A="Max_buckets",
+                                               B=msg_1.format("max_buckets")))
                 else:
                     assert_utils.assert_equals(resp.json()["error_code"], resp_error_code)
                     assert_utils.assert_equals(resp.json()["message_id"], resp_msg_id)
-                    assert_utils.assert_equals(resp.json()["message"].lower(),
-                                                                msg_2.format("max_buckets").lower())
+                    assert_utils.assert_equals(resp.json()["message"],
+                                               Template(msg_2).substitute(A="Max_buckets", 
+                                               B=msg_2.format("max_buckets")))
 
         self.log.info("##### Test completed -  %s #####", test_case_name)
 
@@ -3594,13 +3606,15 @@ class TestIamUserRGW():
                 if key_value is None:
                     assert_utils.assert_equals(resp.json()["error_code"], resp_error_code)
                     assert_utils.assert_equals(resp.json()["message_id"], resp_msg_id)
-                    assert_utils.assert_equals(resp.json()["message"].lower(),
-                                                                msg_1.format("suspended").lower())
+                    assert_utils.assert_equals(resp.json()["message"],
+                                               Template(msg_1).substitute(A="Suspended", 
+                                               B=msg_1.format("suspended")))
                 else:
                     assert_utils.assert_equals(resp.json()["error_code"], resp_error_code)
                     assert_utils.assert_equals(resp.json()["message_id"], resp_msg_id)
-                    assert_utils.assert_equals(resp.json()["message"].lower(),
-                                                                msg_2.format("suspended").lower())
+                    assert_utils.assert_equals(resp.json()["message"],
+                                               Template(msg_2).substitute(A="Suspended", 
+                                               B=msg_2.format("suspended")))
 
         self.log.info("##### Test completed -  %s #####", test_case_name)
 
@@ -3792,7 +3806,9 @@ class TestIamUserRGW():
                 self.log.info("Verifying error response...")
                 assert_utils.assert_equals(resp.json()["error_code"], resp_error_code)
                 assert_utils.assert_equals(resp.json()["message_id"], resp_msg_id)
-                assert_utils.assert_equals(resp.json()["message"], msg)
+                assert_utils.assert_equals(resp.json()["message"],
+                                           Template(msg).substitute(A="User_caps", 
+                                           B=msg))
 
         self.log.info("##### Test completed -  %s #####", test_case_name)
 
@@ -3838,7 +3854,9 @@ class TestIamUserRGW():
             self.log.info("Verifying error response...")
             assert_utils.assert_equals(resp.json()["error_code"], resp_error_code)
             assert_utils.assert_equals(resp.json()["message_id"], resp_msg_id)
-            assert_utils.assert_equals(resp.json()["message"], msg)
+            assert_utils.assert_equals(resp.json()["message"],
+                                       Template(msg).substitute(A="_schema", 
+                                       B="secret_key"))
 
         self.log.info("##### Test completed -  %s #####", test_case_name)
 
@@ -3924,8 +3942,8 @@ class TestIamUserRGW():
         self.created_iam_users.update({usr_val['user']:usr_val})
         self.log.info("STEP 2: Create another user with same uid and different tenant")
         payload.update({"tenant": "abcc"})
-        payload.update({"access_key": "abcc"})
-        payload.update({"email": "abcc@seagate.com"})
+        del payload["access_key"] 
+        del payload["email"]
         resp = self.csm_obj.create_iam_user_rgw(payload)
         self.log.info("Verify Response : %s", resp)
         assert_utils.assert_true(resp.status_code == HTTPStatus.CREATED, "IAM user creation failed")
@@ -4844,12 +4862,12 @@ class TestIamUserRGW():
                     assert_utils.assert_equals(resp.json()["error_code"], resp_error_code)
                     assert_utils.assert_equals(resp.json()["message_id"], resp_msg_id)
                     assert_utils.assert_equals(resp.json()["message"].lower(),
-                                        Template(msg_1).substitute(str_part="Max_entries").lower())
+                                        Template(msg_1).substitute(A="max_entries").lower())
                 else:
                     assert_utils.assert_equals(resp.json()["error_code"], resp_error_code)
                     assert_utils.assert_equals(resp.json()["message_id"], resp_msg_id)
                     assert_utils.assert_equals(resp.json()["message"].lower(),
-                                           Template(msg_2).substitute(A="Max_entries").lower())
+                                           Template(msg_2).substitute(A="max_entries").lower())
         self.log.info("##### Test completed -  %s #####", test_case_name)
 
     @pytest.mark.lc
