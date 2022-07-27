@@ -261,7 +261,7 @@ def develop_execution_plan(rev_tag_map, selected_tag_map, skip_test, test_map, t
                              test)
                 continue
             p_set, s_set = tdict['parallel'], tdict['sequential']
-
+            # selected_tag_map : List of all the tests that needs to be run.
             if tmark not in selected_tag_map:
                 p_s = set()
                 s_s = set()
@@ -390,7 +390,7 @@ def save_to_logdir(test_list: List) -> None:
 
 
 def create_topic(admin_client: AdminClient):
-    topic_list = [NewTopic(params.TEST_EXEC_TOPIC, 2, 1)]
+    topic_list = [NewTopic(params.TEST_EXEC_TOPIC, 1, 1)]
     admin_client.create_topics(topic_list)
 
 

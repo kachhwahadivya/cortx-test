@@ -61,8 +61,8 @@ def get_consumer():
                      'value.deserializer': json_deserializer,
                      'group.id': TEST_EXEC_TOPIC,
                      'auto.offset.reset': "earliest",
-                     'max.poll.interval.ms': 43200000,
-                     'fetch.wait.max.ms': 300000
+                     #'max.poll.interval.ms': 43200000,
+                     'fetch.wait.max.ms': 30000
                      }
 
     consumer = DeserializingConsumer(consumer_conf)

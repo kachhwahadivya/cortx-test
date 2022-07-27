@@ -172,6 +172,12 @@ class TestSystemCapacity():
         Teardowm method for deleting s3 account created in setup.
         """
         self.log.info("[START] Teardown Method")
+        import pdb; pdb.set_trace()
+        if not self.deploy:
+            bundle_dir = os.path.join(LOG_DIR, "latest", "support_bundle")
+            self.log.info("Support bundle dir : %s", bundle_dir)
+            resp = sb.collect_support_bundle_k8s(local_dir_path=bundle_dir,
+                                                scripts_path=K8S_SCRIPTS_PATH)
         if self.restore_pod:
             self.log.info("Failed deployments : %s", self.failed_pod)
             for deploy_name in self.failed_pod:
@@ -189,12 +195,6 @@ class TestSystemCapacity():
             self.log.info("Deleting S3 account %s created in setup", self.s3_user)
             resp = self.csm_obj.delete_s3_account_user(self.s3_user)
             assert resp.status_code == HTTPStatus.OK, "Failed to delete S3 user"
-
-        if not self.deploy:
-            bundle_dir = os.path.join(LOG_DIR, "latest", "support_bundle")
-            self.log.info("Support bundle dir : %s", bundle_dir)
-            resp = sb.collect_support_bundle_k8s(local_dir_path=bundle_dir,
-                                                scripts_path=K8S_SCRIPTS_PATH)
 
         self.deploy = True
         if self.deploy:

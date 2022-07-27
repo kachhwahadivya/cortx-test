@@ -60,7 +60,7 @@ class LockingServer:
                 }
             else:
                 payload = {
-                    "query": {"is_setup_free": {"$eq": False},
+                    "query": {
                               "setupname": target_name,
                               "in_use_for_parallel": {"$eq": True}
                               }
@@ -189,7 +189,7 @@ class LockingServer:
             if target_found:
                 if lock_type == common_cnst.SHARED_LOCK:
                     payload = {
-                        "query": {"is_setup_free": {"$eq": False},
+                        "query": {
                                   "is_setup_healthy": {"$eq": True},
                                   "setupname": target_name,
                                   "in_use_for_parallel": {"$eq": True}}
@@ -250,7 +250,7 @@ class LockingServer:
                       "setupname": target_name,
                       },
             "projection": {"setupname": True, "setup_in_useby": True,
-                           "in_use_for_parallel": True, "parallel_client_cnt": True},
+                           "in_use_for_parallel": True, "parallel_client_cnt": True, "is_setup_free": True},
             "db_username": self.db_username,
             "db_password": self.db_password
         }
