@@ -28,7 +28,8 @@ from config import CMN_CFG
 
 
 class CSMConfigsCheck:
-    """This class will check the configurations of CSM"""
+    """This class will check the configurations of CSM and create pre defined users
+    """
 
     def __init__(self):
         self._log = logging.getLogger(__name__)
